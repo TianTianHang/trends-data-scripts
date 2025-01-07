@@ -1,3 +1,6 @@
-data/*
+data/geo/*
+data/over_time/*
+data/yearly/*
 *.pyc
 .vscode/*
+.ipynb_checkpoints/*

@@ -69,6 +69,7 @@ def process_phrases_with_country(save_path):
     countries=[c for c in countries if c[2]=='Europe']
     for country in countries:
         # 处理每个短语
+        
         for phrase in phrases:
             # 创建目录
             dir_path = f'data/{save_path}/{country[0]}'
@@ -81,12 +82,14 @@ def process_phrases_with_country(save_path):
             # 获取数据
             data = get_trends_data_over_time(phrase, start_date, end_date,country[1])
             while not type(data)==pd.DataFrame:
-                print("等待3600s")
-                sleep(3600)
+                t=random.randrange(60,60*2)
+                print(f"等待{t}s")
+                sleep(t)
                 data = get_trends_data_over_time(phrase, start_date, end_date,country[1])
+                continue
             # 保存数据到CSV
             data.to_csv(file_path, index=True)
-            sleep(random.randrange(5,20))
+            sleep(random.randrange(60,60*2))
         process_all_data(dir_path)
         
 def process_all_data(input_dir):
@@ -128,6 +131,6 @@ def process_all_data(input_dir):
     else:
         print("No valid data found to merge.")
 from env import proxies
-tr = Trends(request_delay=4.0, proxy=proxies)
+tr = Trends(request_delay=10.0, proxy=proxies)
 
 process_phrases_with_country('over_time/original_data')
