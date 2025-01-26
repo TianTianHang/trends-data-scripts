@@ -81,15 +81,15 @@ def process_phrases_with_country(save_path):
                 continue
             # 获取数据
             data = get_trends_data_over_time(phrase, start_date, end_date,country[1])
-            while not type(data)==pd.DataFrame:
-                t=random.randrange(60,60*2)
+            while not type(data)==pd.DataFrame or data.empty:
+                t=random.randrange(20,20*2)
                 print(f"等待{t}s")
                 sleep(t)
                 data = get_trends_data_over_time(phrase, start_date, end_date,country[1])
                 continue
             # 保存数据到CSV
             data.to_csv(file_path, index=True)
-            sleep(random.randrange(60,60*2))
+            sleep(random.randrange(20,20*2))
         process_all_data(dir_path)
         
 def process_all_data(input_dir):
@@ -133,4 +133,4 @@ def process_all_data(input_dir):
 from env import proxies
 tr = Trends(request_delay=10.0, proxy=proxies)
 
-process_phrases_with_country('over_time/original_data')
+process_phrases('over_time/original_data')

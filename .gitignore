@@ -4,3 +4,4 @@ data/yearly/*
 *.pyc
 .vscode/*
 .ipynb_checkpoints/*
+scripts/env.py
